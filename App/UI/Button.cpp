@@ -28,12 +28,10 @@ void Button::update(const sf::RenderWindow & window)
     }
 }
 
-Button& Button::setTextCenter()
+void Button::setTextCenter()
 {
     sf::FloatRect textRect = m_text.getLocalBounds();
     m_text.setOrigin(textRect.left + textRect.width/2.0f, textRect.top  + textRect.height/2.0f);
-    
-    return *this;
 }
 
 void Button::draw(sf::RenderTarget& target, sf::RenderStates states) const

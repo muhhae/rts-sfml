@@ -8,26 +8,26 @@
 class Button : public sf::Drawable
 {
 public:
-    Button() { }
+    Button(){}
     
-    Button& setOrigin(sf::Vector2f origin) {m_button.setOrigin(origin); return *this;}
-    Button& setButtonPosition(sf::Vector2f position) {m_button.setPosition(position); return *this;}
-    Button& setButtonSize(sf::Vector2f size) {m_button.setSize(size); return *this;}
-    Button& setButtonColor(sf::Color color) {m_button.setFillColor(color); return *this;}
-    Button& setButtonOutlineColor(sf::Color color) {m_button.setOutlineColor(color); return *this;}
-    Button& setButtonOutlineThickness(float thickness) {m_button.setOutlineThickness(thickness); return *this;}
-    Button& setButtonTexture(sf::Texture& texture) {m_button.setTexture(&texture); return *this;}
+    void setOrigin(sf::Vector2f origin) {m_button.setOrigin(origin);}
+    void setButtonPosition(sf::Vector2f position) {m_button.setPosition(position); m_text.setPosition(m_text.getPosition() + position);}
+    void setButtonSize(sf::Vector2f size) {m_button.setSize(size);}
+    void setButtonColor(sf::Color color) {m_button.setFillColor(color);}
+    void setButtonOutlineColor(sf::Color color) {m_button.setOutlineColor(color);}
+    void setButtonOutlineThickness(float thickness) {m_button.setOutlineThickness(thickness);}
+    void setButtonTexture(sf::Texture& texture) {m_button.setTexture(&texture);}
     
-    Button& setFont(sf::Font font) {m_text.setFont(font); return *this;}
-    Button& setTextCenter();
-    Button& setTextString(std::string string) {m_text.setString(string); return *this;}
-    Button& setTextSize(unsigned int size) {m_text.setCharacterSize(size); return *this;}
-    Button& setTextColor(sf::Color color) {m_text.setFillColor(color); return *this;}
-    Button& setTextPosition(sf::Vector2f position) {m_text.setPosition(position); return *this;}
+    void setFont(const sf::Font& font) {m_text.setFont(font);}
+    void setTextCenter();
+    void setTextString(std::string string) {m_text.setString(string);}
+    void setTextSize(unsigned int size) {m_text.setCharacterSize(size);}
+    void setTextColor(sf::Color color) {m_text.setFillColor(color);}
+    void setTextPosition(sf::Vector2f position) {m_text.setPosition(m_button.getPosition() + position);}
     
-    Button& setButtonOnClick(std::function<void()> functionOnClick) {m_onClick = functionOnClick; return *this;}
-    Button& setButtonOnHover(std::function<void()> functionOnHover) {m_onHover = functionOnHover; return *this;}
-    Button& setButtonOnUpdate(std::function<void()> functionOnUpdate) {m_onUpdate = functionOnUpdate; return *this;}
+    void setButtonOnClick(std::function<void()> functionOnClick) {m_onClick = functionOnClick;}
+    void setButtonOnHover(std::function<void()> functionOnHover) {m_onHover = functionOnHover;}
+    void setButtonOnUpdate(std::function<void()> functionOnUpdate) {m_onUpdate = functionOnUpdate;}
     
     void update(const sf::RenderWindow & window);
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;
