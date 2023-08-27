@@ -9,10 +9,15 @@
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "SFML works!");
+    sf::RenderWindow window(sf::VideoMode::getDesktopMode(), "SFML works!", sf::Style::Fullscreen);
+    sf::View view = window.getDefaultView();
+    window.setView(view);
     
-    SceneManager sceneManager;
-    sceneManager.loadScene(new tesScene() , window);
+    while (window.isOpen())
+    {
+        SceneManager sceneManager;
+        sceneManager.loadScene(new tesScene() , window);
+    }
 
     return 0;
 }

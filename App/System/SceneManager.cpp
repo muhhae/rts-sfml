@@ -2,17 +2,15 @@
 
 void SceneManager::loadScene(Scene* scene , sf::RenderWindow& window)
 {
-    currentScene = scene;
-    currentScene->onStart();
+    sf::Clock clock;
+    sf::Time dt;
+    
+    scene->onStart(window);
     while (window.isOpen())
     {
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed) window.close();
-        }
-        if(!currentScene->onUpdate(window)) break;
+        dt = clock.restart();
+        if(!scene->onUpdate(window, dt)) break;
     }
-    currentScene->onExit();
+    scene ->onExit(window);
     delete scene;
 }
