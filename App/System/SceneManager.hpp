@@ -5,17 +5,21 @@
 class Scene
 {
 public:
-    Scene() {}
-    virtual bool onUpdate(sf::RenderWindow& window, sf::Time dt) { return false; }
+    Scene(std::string name) : name(name) {}
+    virtual void onUpdate(sf::RenderWindow& window, sf::Time dt) {}
     virtual void onStart(sf::RenderWindow& window) {}
     virtual void onExit(sf::RenderWindow& window) {}
+    std::string name;
 };
 
 class SceneManager
 {
 private:
-public:
     SceneManager(){}
-    void loadScene(Scene* scene , sf::RenderWindow& window);
-    
+public:
+    static void loadScene(Scene* scene, sf::RenderWindow& window);
+    static void changeScene(std::string scene) { currentScene = scene; }
+    static SceneManager* instance;
+    static std::string currentScene;
 };
+

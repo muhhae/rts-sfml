@@ -1,16 +1,20 @@
 #include "SceneManager.hpp"
+#include "Global.hpp"
+
+SceneManager * SceneManager::instance = new SceneManager;
+std::string SceneManager::currentScene = "";
+
 
 void SceneManager::loadScene(Scene* scene , sf::RenderWindow& window)
 {
     sf::Clock clock;
-    sf::Time dt;
     
     scene->onStart(window);
     while (window.isOpen())
     {
-        dt = clock.restart();
-        if(!scene->onUpdate(window, dt)) break;
+        scene->onUpdate(window, clock.restart());
+        if (currentScene != scene->name)
+            break;
     }
     scene ->onExit(window);
-    delete scene;
 }

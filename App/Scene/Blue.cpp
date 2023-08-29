@@ -1,9 +1,10 @@
-#include "tesScene.hpp"
+#include "Blue.hpp"
 #include "System/Log.hpp"
+#include "System/Global.hpp"
 
 #include <iostream>
 
-void tesScene::onUpdate(sf::RenderWindow & window, sf::Time dt)
+void Blue::onUpdate(sf::RenderWindow & window, sf::Time dt)
 {
     sf::Event event;
     while (window.pollEvent(event))
@@ -13,7 +14,7 @@ void tesScene::onUpdate(sf::RenderWindow & window, sf::Time dt)
         if (event.type == sf::Event::KeyPressed)
         {
             if (event.key.code == sf::Keyboard::Escape) window.close();
-            if (event.key.code == sf::Keyboard::Space) ;
+            if (event.key.code == sf::Keyboard::Space);
         }
     }
     
@@ -39,50 +40,34 @@ void tesScene::onUpdate(sf::RenderWindow & window, sf::Time dt)
         shape.setPosition(latestMousePos);
     }
     
-    BlueButton.update(window);
+    sf::Text text("FPS : " + std::to_string(1 / dt.asSeconds()), defaultFont(), 30);
+    text.setPosition(window.getView().getSize().x / -2, window.getView().getSize().y / -2);
+    
+    sf::Text ms(std::to_string(dt.asSeconds()) + " s", defaultFont(), 30);
+    ms.setPosition(text.getPosition());
+    ms.move(0, 30);
     
     window.clear(sf::Color::Black);
         window.draw(shape);
-        window.draw(BlueButton);
+        window.draw(text);
+        window.draw(ms);
     window.display();
 }
 
-void tesScene::onStart(sf::RenderWindow& window)
+void Blue::onStart(sf::RenderWindow& window)
 {
-    std::cout << "onStart tesScene\n";
+    std::cout << "onStart Blue\n";
     shape.setPosition(100,100);
     shape.setFillColor(sf::Color::Green);
     shape.setRadius(100);
     shape.setPointCount(6);
-    shape.setFillColor(sf::Color::Red);
+    shape.setFillColor(sf::Color::Blue);
     shape.setOrigin(100,100);
     
     latestMousePos = shape.getPosition();
-    
-    BlueButton.setButtonColor(sf::Color::Red);
-    BlueButton.setButtonSize(sf::Vector2f(200,100));
-    BlueButton.setButtonPosition(sf::Vector2f(400,-400));
-    BlueButton.setTextString("tesScene");
-    BlueButton.setTextSize(20);
-    BlueButton.setTextColor(sf::Color::White);
-    BlueButton.setTextPosition(sf::Vector2f(0,0));
-    BlueButton.setTextCenter();
-    BlueButton.setOrigin(sf::Vector2f(100,50));
-    
-    BlueButton.setButtonOnUpdate([&](){
-        BlueButton.setButtonColor(sf::Color::Blue);
-    });
-    
-    BlueButton.setButtonOnHover([&](){
-        BlueButton.setButtonColor(sf::Color::Green);
-    });
-    
-    BlueButton.setButtonOnClick([&](){
-        SceneManager::changeScene("Blue");
-    });
 }
 
-void tesScene::onExit(sf::RenderWindow& window)
+void Blue::onExit(sf::RenderWindow& window)
 {
-    std::cout << "onExit tesScene\n";
+    std::cout << "onExit Blue\n";
 }
