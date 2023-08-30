@@ -9,7 +9,7 @@
 #include "Scene/Blue.hpp"
 #include "Scene/MainScene.hpp"
 
-#include <memory>
+#include <set>
 
 int main()
 {
@@ -18,11 +18,11 @@ int main()
     view.setCenter(sf::Vector2f(0,0));
     window.setView(view);
     
-    std::vector<Scene*> scenes;
+    std::set<Scene*> scenes;
     
-    scenes.push_back(new tesScene("tesScene"));
-    scenes.push_back(new Blue("Blue"));
-    scenes.push_back(new MainScene("MainScene"));
+    scenes.insert(new tesScene("tesScene"));
+    scenes.insert(new Blue("Blue"));
+    scenes.insert(new MainScene("MainScene"));
     
     SceneManager::changeScene("tesScene");
     
