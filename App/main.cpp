@@ -24,7 +24,7 @@ int main()
     scenes.insert(new Blue("Blue"));
     scenes.insert(new MainScene("MainScene"));
     
-    SceneManager::changeScene("tesScene");
+    SceneManager::changeScene("Blue");
     
     while (window.isOpen())
     {

@@ -1,6 +1,7 @@
 #include "Blue.hpp"
 #include "System/Log.hpp"
 #include "System/Global.hpp"
+#include "Math/VectorOperation.hpp"
 
 #include <iostream>
 
@@ -24,16 +25,10 @@ void Blue::onUpdate(sf::RenderWindow & window, sf::Time dt)
     }
     
     sf::Vector2f moveDir = latestMousePos - shape.getPosition();
-    
-    float distance = sqrt(moveDir.x * moveDir.x + moveDir.y * moveDir.y);
-    
-    // LOG("distance: " << distance);
-    
-    if (distance > 1)
+    sf::Vector2f offset = Normalize(moveDir) * speed * dt.asSeconds();
+    if (Magnitude(offset) < Magnitude(moveDir))
     {
-        moveDir = moveDir / sqrt(moveDir.x * moveDir.x + moveDir.y * moveDir.y);
-        moveDir = moveDir * speed * dt.asSeconds();
-        shape.move(moveDir);
+        shape.move(offset);
     }
     else
     {
